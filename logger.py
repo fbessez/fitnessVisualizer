@@ -149,9 +149,10 @@ def main(args):
     arg_open       = args["open"]
     arg_javascript = args["javascript"]
 
+
     try:
     	filename = category_to_file_name[arg_category]
-    	local_url = 'file://' + os.path.realpath('index.html')
+    	local_url = 'file://' + os.path.dirname(os.path.realpath(sys.argv[0])) + '/index.html'
     except:
     	die("Need to specify category")
 
