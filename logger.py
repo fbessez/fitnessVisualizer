@@ -18,10 +18,12 @@ import time
 import os.path
 import webbrowser
 
-WEIGHT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/weight.txt"
-BENCH_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/bench.txt"
-SQUAT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/squat.txt"
-DEADLIFT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/deadlift.txt"
+PATH_NAME = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+WEIGHT_FILE = PATH_NAME + "/weight.txt"
+BENCH_FILE = PATH_NAME + "/bench.txt"
+SQUAT_FILE = PATH_NAME + "/squat.txt"
+DEADLIFT_FILE = PATH_NAME + "/deadlift.txt"
 
 category_to_file_name = {
     "bench": BENCH_FILE,
@@ -30,7 +32,7 @@ category_to_file_name = {
     "weight": WEIGHT_FILE
 }
 
-JAVASCRIPT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/weight.js"
+JAVASCRIPT_FILE = PATH_NAME + "/weight.js"
 TIME_FORMAT     = "%Y-%m-%d-%H:%M" # e.g. 2015-07-15-13:34
 
 
@@ -152,7 +154,7 @@ def main(args):
 
     try:
     	filename = category_to_file_name[arg_category]
-    	local_url = 'file://' + os.path.dirname(os.path.realpath(sys.argv[0])) + '/index.html'
+    	local_url = 'file://' + PATH_NAME + '/index.html'
     except:
     	die("Need to specify category")
 
