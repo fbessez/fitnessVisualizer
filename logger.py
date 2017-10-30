@@ -18,10 +18,10 @@ import time
 import os.path
 import webbrowser
 
-WEIGHT_FILE = "weight.txt"
-BENCH_FILE = "bench.txt"
-SQUAT_FILE = "squat.txt"
-DEADLIFT_FILE = "deadlift.txt"
+WEIGHT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/weight.txt"
+BENCH_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/bench.txt"
+SQUAT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/squat.txt"
+DEADLIFT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/deadlift.txt"
 
 category_to_file_name = {
     "bench": BENCH_FILE,
@@ -30,7 +30,7 @@ category_to_file_name = {
     "weight": WEIGHT_FILE
 }
 
-JAVASCRIPT_FILE = "weight.js"
+JAVASCRIPT_FILE = os.path.dirname(os.path.realpath(sys.argv[0])) + "/weight.js"
 TIME_FORMAT     = "%Y-%m-%d-%H:%M" # e.g. 2015-07-15-13:34
 
 
