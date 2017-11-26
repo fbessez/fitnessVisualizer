@@ -36,7 +36,7 @@ JAVASCRIPT_FILE = PATH_NAME + "/weight.js"
 TIME_FORMAT     = "%Y-%m-%d-%H:%M" # e.g. 2015-07-15-13:34
 
 
-def usage(): 
+def usage():
     return __doc__
 
 def die(msg):
@@ -72,23 +72,25 @@ def parse_weights(filename):
     with open(filename, "r") as f:
         weights = []
         for line in f:
-            parts  = line.split()
-            time   = int(parts[0])
-            weight = float(parts[1])
-            weights.append((time, weight))
+            try:
+                parts  = line.split()
+                time   = int(parts[0])
+                weight = float(parts[1])
+                weights.append((time, weight))
+            except:
+                continue
         return weights
 
 def record_weight(time, weight, filename):
     weights = parse_weights(filename)
 
-    with open(filename, "w") as f:
+    with open(filename, "w+") as f:
         weights.append((time, weight))
         weights.sort()
         for (time, weight) in weights:
             f.write("{} {}\n".format(time, weight))
 
 def generate_javascript(filename):
-    name = 'fab'
     template = """
         $(function () {{
             $('#container').highcharts({{
@@ -129,19 +131,19 @@ def generate_javascript(filename):
                     data: [{}]
                 }}]
             }});
-        }}); 
+        }});
     """
 
     timeweights = parse_weights(filename)
 
     times   = [timeweight[0] for timeweight in timeweights]
     times   = [epoch_to_datetime(time) for time in times]
-    times   = ["Date.UTC({}, {}, {}, {}, {})".format(time.year, time.month, time.day, time.hour, time.minute) for time in times]
+    times   = ["Date.UTC({}, {}, {}, {}, {})".format(time.year, time.month - 1, time.day, time.hour, time.minute) for time in times]
 
     weights = [timeweight[1] for timeweight in timeweights]
     weights = ["{}".format(weight) for weight in weights]
 
-    with open(JAVASCRIPT_FILE, "w") as f:
+    with open(JAVASCRIPT_FILE, "w+") as f:
         f.write(template.format(", ".join("[{}, {}]".format(time, weight) for (time, weight) in zip (times, weights))))
 
 def main(args):
